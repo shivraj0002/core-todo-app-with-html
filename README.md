@@ -1,4 +1,4 @@
-# core-todo-app-with-html
+# Core Todo App With Html
 
 A core todo application built with plain HTML, CSS, and JavaScript, utilizing a state management approach with an array of objects. This project is designed for brushing up knowledge on fundamental web development concepts, including DOM manipulation, event handling, and inline styling.
 
