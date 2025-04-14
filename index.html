@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Todo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        input {
+            padding: 10px;
+            width: 70%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .todo-container {
+            background-color: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .todo-text {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .remove-btn {
+            background-color: #ff4444;
+        }
+
+        .remove-btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" placeholder="Add a new todo...">
+    <button onclick="addToDo()">Add</button>
+    <div id="todos"></div>
+    <script>
+        // State - Array of objects
+        let todos = [];
+
+        // Create Component
+        const createComponent = (todo) => {
+            const div = document.createElement('div');
+            div.className = 'todo-container';
+
+            const h1 = document.createElement('h1');
+            h1.className = 'todo-text';
+            h1.innerText = todo.text;
+
+            const removeButton = document.createElement('button');
+            removeButton.innerText = 'Remove';
+            removeButton.className = 'remove-btn';
+            removeButton.onclick = () => {
+                todos = todos.filter((item) => item.id !== todo.id);
+                render();
+            };
+
+            div.appendChild(h1);
+            div.appendChild(removeButton);
+            return div;
+        };
+
+        // Add to TODO Event handler
+        const addToDo = () => {
+            const input = document.querySelector('input');
+            const text = input.value.trim();
+            if (text) {
+                const todo = {
+                    id: Date.now() + Math.random(), // Unique ID
+                    text: text,
+                    createdAt: new Date()
+                };
+                todos.push(todo);
+                input.value = ''; // Clear input
+                render();
+            }
+        };
+
+        // Render
+        const render = () => {
+            const todosDiv = document.getElementById('todos');
+            todosDiv.innerHTML = '';
+            todos.forEach((todo) => {
+                const component = createComponent(todo);
+                todosDiv.appendChild(component);
+            });
+        };
+    </script>
+</body>
+
+</html>
